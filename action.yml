@@ -11,6 +11,10 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - name: Set HOME
+      run: echo "HOME=$(realpath "$HOME")" >> $GITHUB_ENV
+      shell: bash
+      
     - name: NDK cache
       id: cache
       uses: actions/cache@v4
@@ -27,7 +31,7 @@ runs:
 
     - name: Unzip ndk
       if: ${{ !steps.cache.outputs.cache-hit }}
-      run: unzip "${{ env.HOME }}/ndk.zip" -d "${HOME}/"
+      run: unzip "${{ env.HOME }}/ndk.zip" -d "${{ env.HOME }}/"
       shell: bash
 
     - name: Set output

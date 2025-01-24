@@ -15,7 +15,7 @@ runs:
       id: cache
       uses: actions/cache@v4
       with:
-        path: ${HOME}/android-ndk-r27-canary/
+        path: ${{ env.HOME }}/android-ndk-r27-canary/
         key: ${{ runner.os }}-ndk-r27-canary
 
     - name: Download canary ndk
@@ -27,10 +27,10 @@ runs:
 
     - name: Unzip ndk
       if: ${{ !steps.cache.outputs.cache-hit }}
-      run: unzip "${HOME}/ndk.zip" -d "${HOME}/"
+      run: unzip "${{ env.HOME }}/ndk.zip" -d "${HOME}/"
       shell: bash
 
     - name: Set output
       id: path
       shell: bash
-      run: echo "path=${HOME}/android-ndk-r27-canary" >> ${GITHUB_OUTPUT}
+      run: echo "path=${{ env.HOME }}/android-ndk-r27-canary" >> ${GITHUB_OUTPUT}
